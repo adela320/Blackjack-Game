@@ -88,7 +88,7 @@ function newCard()
 
 function stand()
 {
-    if(isAlive === true && sum_dealer < 17)
+    if(isAlive === true)
     {
         cardsDealerEl.textContent += DealerCards[1] + " ";
         while(sum_dealer < 17)
@@ -110,9 +110,10 @@ function stand()
         {
             message = "Dealer wins!";
         }
-        messageEl.textContent = message;
+         messageEl.textContent = message;
         isAlive = false;
     }
+       
 }
 
 function dealerCards()
