@@ -5,7 +5,20 @@ body{
     font-weight: bold;
     color: white;
     text-align: center;
+   
 }
+
+#game-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+}
+
+#player-div, #dealer-div {
+    width: 250px;
+}
+
 
 h1{
     color: goldenrod;

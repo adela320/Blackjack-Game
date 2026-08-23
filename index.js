@@ -1,16 +1,20 @@
 let player = {
-    name : "Adela",
+    name : "You",
     chips : 100
 }
 let cards = [];
+let DealerCards = [];
 let sum = 0;
+let sum_dealer = 0;
 let hasBlackJack = false;
 let isAlive = false;
 let message = "";
 let messageEl = document.getElementById("message-el");
-let sumEl = document.getElementById("sum-el");
-let cardsEl = document.getElementById("cards-el");
+let sumEl = document.getElementById("sum-player");
+let cardsEl = document.getElementById("cards-player");
 let playerEl = document.getElementById("player-el");
+let sumDealerEl = document.getElementById("sum-dealer");
+let cardsDealerEl = document.getElementById("cards-dealer");
 playerEl.textContent = player.name + ": $" + player.chips;
 
 function getRandomCard()
@@ -30,10 +34,19 @@ function getRandomCard()
 function startGame()
 {
     isAlive = true;
+    hasBlackJack = false;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
     cards = [firstCard, secondCard];
     sum = firstCard + secondCard;
+
+    sumDealerEl.textContent = "Sum: ";
+    cardsDealerEl.textContent = "Cards: ";
+    let firstCardDealer = getRandomCard();
+    let secondCardDealer = getRandomCard();
+    DealerCards = [firstCardDealer, secondCardDealer];
+    sum_dealer = firstCardDealer + secondCardDealer;
+    dealerCards();
     renderGame();
 }
 
@@ -71,4 +84,38 @@ function newCard()
         sum += card;
         renderGame();
     }
+}
+
+function stand()
+{
+    if(isAlive === true && sum_dealer < 17)
+    {
+        cardsDealerEl.textContent += DealerCards[1] + " ";
+        while(sum_dealer < 17)
+        {
+            let card = getRandomCard();
+            sum_dealer += card;
+            cardsDealerEl.textContent += card + " ";
+        }
+        sumDealerEl.textContent = "Sum: " + sum_dealer;
+        if(sum_dealer > 21 || sum > sum_dealer)
+        {
+            message = "You win!";
+        }
+        else if(sum == sum_dealer && sum_dealer <= 21)
+        {
+            message = "It's a tie!";
+        }
+        else
+        {
+            message = "Dealer wins!";
+        }
+        messageEl.textContent = message;
+        isAlive = false;
+    }
+}
+
+function dealerCards()
+{
+     cardsDealerEl.textContent = "Cards: " + DealerCards[0] + " ";
 }
