@@ -15,7 +15,7 @@ let cardsEl = document.getElementById("cards-player");
 let playerEl = document.getElementById("player-el");
 let sumDealerEl = document.getElementById("sum-dealer");
 let cardsDealerEl = document.getElementById("cards-dealer");
-playerEl.textContent = player.name + ": $" + player.chips;
+
 
 function getRandomCard()
 {
@@ -33,6 +33,8 @@ function getRandomCard()
 
 function startGame()
 {
+    player.chips = 100;
+    playerEl.textContent = player.name + ": $" + player.chips;
     isAlive = true;
     hasBlackJack = false;
     let firstCard = getRandomCard();
@@ -71,6 +73,7 @@ function renderGame()
     {
         message = "You're out of the game!";
         isAlive = false;
+        playerEl.textContent = player.name + ": $0";
     }
     messageEl.textContent = message;
 }
@@ -80,6 +83,10 @@ function newCard()
     if(isAlive === true && hasBlackJack === false)
     {
         let card =  getRandomCard();
+        if(card == 11 && sum + card > 21)
+        {
+            card = 1;
+        }
         cards.push(card);
         sum += card;
         renderGame();
@@ -101,6 +108,15 @@ function stand()
         if(sum_dealer > 21 || sum > sum_dealer)
         {
             message = "You win!";
+            if(hasBlackJack)
+            {
+                 player.chips += player.chips * (3/2);
+            }
+            else
+            {
+                player.chips *= 2;
+            }
+            playerEl.textContent = player.name + ": $" + player.chips;
         }
         else if(sum == sum_dealer && sum_dealer <= 21)
         {
@@ -109,6 +125,7 @@ function stand()
         else
         {
             message = "Dealer wins!";
+            playerEl.textContent = player.name + ": $0";
         }
          messageEl.textContent = message;
         isAlive = false;
