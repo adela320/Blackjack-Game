@@ -4,6 +4,16 @@
     </head>
     <body>
         <h1 id="title-el">Blackjack</h1>
+        <button id="info-btn" onclick="toggleRules()">i</button>
+
+        <div id="rules-modal" class="hidden" onclick="toggleRules()">
+            <div id="rules-content">
+                <h2>Rules</h2>
+                <p>Get closer to 21 than the dealer without going over.</p>
+                <p>HIT to draw a card, STAND to hold your total.</p>
+                <img src="images/card-values.png" alt="Rules">
+            </div>
+        </div>
         <div id="game-container">
             <div id="player-div">
                 <p>PLAYER</p>

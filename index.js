@@ -137,3 +137,7 @@ function dealerCards()
 {
      cardsDealerEl.textContent = "Cards: " + DealerCards[0] + " ";
 }
+
+function toggleRules(){
+    document.getElementById("rules-modal").classList.toggle("hidden");
+}
